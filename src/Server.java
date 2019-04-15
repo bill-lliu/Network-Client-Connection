@@ -1,17 +1,19 @@
-/* [ChatProgramServer.java]
- * Description: This is an example of a chat server.
- * The program  waits for a client and accepts a message. 
- * It then responds to the message and quits.
- * This server demonstrates how to employ multithreading to accepts multiple clients
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+/* [ChatServer.java]
+ * You will need to modify this so that received messages are broadcast to all clients
  * @author Mangat
- * @version 1.0a
+ * @ version 1.0a
  */
 
 //imports for network communication
-import java.io.*;
-import java.net.*;
 
-class ChatProgramServer {
+class ChatServer {
   
   ServerSocket serverSock;// server socket for connection
   static Boolean running = true;  // controls if the server is accepting clients
@@ -20,7 +22,7 @@ class ChatProgramServer {
     * @param args parameters from command line
     */
   public static void main(String[] args) { 
-    new ChatProgramServer().go(); //start the server
+    new ChatServer().go(); //start the server
   }
   
   /** Go
@@ -33,7 +35,7 @@ class ChatProgramServer {
         
     try {
       serverSock = new ServerSocket(5000);  //assigns an port to the server
-      serverSock.setSoTimeout(500000);  //5 second timeout
+      serverSock.setSoTimeout(15000);  //15 second timeout
          while(running) {  //this loops to accept multiple clients
             client = serverSock.accept();  //wait for connection
            System.out.println("Client connected");
@@ -85,13 +87,16 @@ class ChatProgramServer {
       //Get a message from the client
       String msg="";
       
+           //Send a message to the client
+
+      
       //Get a message from the client
       while(running) {  // loop unit a message is received        
         try {
-          if (input.ready()) { //check for an incoming message
+          if (input.ready()) { //check for an incoming messge
             msg = input.readLine();  //get a message from the client
-            System.out.println("msg from client: " + msg); 
-            running=false; //stop receving messages
+            output.println(msg); //echo the message back to the client ** This needs changing for multiple clients
+            output.flush();             
           }
           }catch (IOException e) { 
             System.out.println("Failed to receive msg from the client");
@@ -113,4 +118,4 @@ class ChatProgramServer {
       }
     } // end of run()
   } //end of inner class   
-} //end of ChatProgramServer class
+} //end of Class
