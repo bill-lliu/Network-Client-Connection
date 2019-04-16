@@ -1,3 +1,10 @@
+/* [ChatServer.java]
+ * Server set up to connect multiple clients and allow them to chat with each other
+ * @author Bill Liu and Harpal Mangat
+ * April 15, 2019
+ */
+
+//imports
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -5,14 +12,7 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-/* [ChatServer.java]
- * You will need to modify this so that received messages are broadcast to all clients
- * @author Mangat
- * @ version 1.0a
- */
-
-//imports for network communication
-
+//main class for the server
 class ChatServer {
   
   ServerSocket serverSock;// server socket for connection
@@ -35,7 +35,7 @@ class ChatServer {
         
     try {
       serverSock = new ServerSocket(5000);  //assigns an port to the server
-      serverSock.setSoTimeout(15000);  //15 second timeout
+      serverSock.setSoTimeout(15000);  //15 second run time for the server
          while(running) {  //this loops to accept multiple clients
             client = serverSock.accept();  //wait for connection
            System.out.println("Client connected");
