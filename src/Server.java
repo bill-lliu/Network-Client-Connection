@@ -35,7 +35,7 @@ class ChatServer {
 		
 		try {
 			serverSock = new ServerSocket(5000);  //assigns an port to the server
-			serverSock.setSoTimeout(60000);  //the server will run for 60 seconds
+			serverSock.setSoTimeout(300000);  //the server will run for 5 minutes
 			while(running) {  //this loops to accept multiple clients
 				client = serverSock.accept();  //wait for connection
 				System.out.println("Client " + client + " connected");
@@ -45,10 +45,10 @@ class ChatServer {
 				t.start(); //start the new thread
 				
 				//added to the loop is a function that returns the message to all designated receivers
-				for (each connection) {
-					check if this connection deserves the message
-						send message to that connection
-				}
+				//for (each connection) {
+					//check if this connection deserves the message
+						//send message to that connection
+				//}
 				
 				
 				
@@ -99,8 +99,14 @@ class ChatServer {
 		 */
 		public void run() {  
 
-			//Get a message from the client
+			//Used to get strings from the client
 			String msg="";
+			
+			//adds user 
+			
+			
+			System.out.println(client + ": " + msg + " has joined.");
+			
 			while(running) {  // loop unit a message is received        
 				try {
 					if (input.ready()) { //check for an incoming message
